@@ -430,10 +430,16 @@
           });
         }
 
+        function normalizeFilterValue(value) {
+          return value.toLowerCase().replace(/[^a-z0-9]/g, "");
+        }
+
         function getVisibleGroups() {
           var figurinhas = state.figurinhas.slice();
           var gruposFigurinhas;
           var colunasFinal;
+          var filterString;
+          var normalizedFilterString;
 
           if (state.esconderSelecionadas) {
             figurinhas = figurinhas.filter(function (figurinha) {
@@ -442,8 +448,14 @@
           }
 
           if (state.filterString) {
+            filterString = state.filterString.toLowerCase();
+            normalizedFilterString = normalizeFilterValue(state.filterString);
+
             figurinhas = figurinhas.filter(function (figurinha) {
-              return figurinha.value.toLowerCase().indexOf(state.filterString.toLowerCase()) > -1;
+              var figurinhaValue = figurinha.value.toLowerCase();
+              var normalizedFigurinhaValue = normalizeFilterValue(figurinha.value);
+
+              return figurinhaValue.indexOf(filterString) > -1 || normalizedFigurinhaValue.indexOf(normalizedFilterString) > -1;
             });
           }
 
@@ -466,6 +478,12 @@
           });
 
           return gruposFigurinhas;
+        }
+
+        function getVisibleFigurinhas() {
+          return getVisibleGroups().reduce(function (visibleFigurinhas, grupo) {
+            return visibleFigurinhas.concat.apply(visibleFigurinhas, grupo.data);
+          }, []);
         }
 
         function saveSelections() {
@@ -590,6 +608,25 @@
 
           elements.filterString.addEventListener("input", function (event) {
             state.filterString = event.target.value;
+            render();
+          });
+
+          elements.filterString.addEventListener("keydown", function (event) {
+            var visibleFigurinhas;
+
+            if (event.key !== "Enter") {
+              return;
+            }
+
+            visibleFigurinhas = getVisibleFigurinhas();
+
+            if (visibleFigurinhas.length !== 1) {
+              return;
+            }
+
+            toggleSelection(visibleFigurinhas[0].value);
+            state.filterString = "";
+            elements.filterString.value = "";
             render();
           });
         }
