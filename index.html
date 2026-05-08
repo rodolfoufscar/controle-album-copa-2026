@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Album da Copa 2022</title>
+    <title>Album da Copa 2026</title>
     <style>
       html,
       body,
@@ -274,7 +274,7 @@
   </head>
   <body>
     <div id="app" class="container">
-      <h1 class="no-print mb20">Album da Copa 2022</h1>
+      <h1 class="no-print mb20">Album da Copa 2026</h1>
 
       <div class="options-layout no-print">
         <div class="text-left">
@@ -321,14 +321,20 @@
 
     <script>
       (function () {
-        var times = [
-          "QAT", "ECU", "SEN", "NED", "ENG", "IRN", "USA", "WAL",
-          "ARG", "KSA", "MEX", "POL", "FRA", "AUS", "DEN", "TUN",
-          "ESP", "CRC", "GER", "JPN", "BEL", "CAN", "MAR", "CRO",
-          "BRA", "SRB", "SUI", "CMR", "POR", "GHA", "URU", "KOR"
-        ];
-
-        var storageKey = "figurinhasSelecionadas";
+        var albumConfig = {
+          storageKey: "figurinhasSelecionadas2026",
+          specialStickers: 19,
+          stickersPerTeam: 20,
+          cocaColaStickers: 12,
+          teams: [
+            "CAN", "MEX", "USA", "AUS", "IRQ", "IRN", "JPN", "JOR",
+            "KOR", "QAT", "KSA", "UZB", "ALG", "CPV", "COD", "CIV",
+            "EGY", "GHA", "MAR", "SEN", "RSA", "TUN", "CUW", "HAI",
+            "PAN", "ARG", "BRA", "COL", "ECU", "PAR", "URU", "NZL",
+            "AUT", "BEL", "BIH", "CRO", "CZE", "ENG", "FRA", "GER",
+            "NED", "NOR", "POR", "SCO", "ESP", "SWE", "SUI", "TUR"
+          ]
+        };
         var state = {
           colunas: 16,
           lastValidColunas: 16,
@@ -355,22 +361,24 @@
         function buildFigurinhas() {
           var figurinhas = [{ value: "00", group: "Grupo" }];
           var i;
+          var currentSpecial = 1;
+          var leadingSpecials = Math.ceil(albumConfig.specialStickers / 2);
 
-          for (i = 1; i <= 18; i += 1) {
+          for (i = 1; i <= leadingSpecials; i += 1) {
             figurinhas.push({ value: "FWC " + i, group: "FWC" });
           }
 
-          times.forEach(function (time) {
-            for (i = 1; i <= 20; i += 1) {
+          albumConfig.teams.forEach(function (time) {
+            for (i = 1; i <= albumConfig.stickersPerTeam; i += 1) {
               figurinhas.push({ value: time + " " + i, group: time });
             }
           });
 
-          for (i = 19; i <= 29; i += 1) {
-            figurinhas.push({ value: "FWC " + i, group: "FWC" });
+          for (currentSpecial = leadingSpecials + 1; currentSpecial <= albumConfig.specialStickers; currentSpecial += 1) {
+            figurinhas.push({ value: "FWC " + currentSpecial, group: "FWC" });
           }
 
-          for (i = 1; i <= 8; i += 1) {
+          for (i = 1; i <= albumConfig.cocaColaStickers; i += 1) {
             figurinhas.push({ value: "C" + i, group: "C" });
           }
 
@@ -461,7 +469,7 @@
         }
 
         function saveSelections() {
-          localStorage.setItem(storageKey, JSON.stringify(state.figurinhasSelecionadas));
+          localStorage.setItem(albumConfig.storageKey, JSON.stringify(state.figurinhasSelecionadas));
         }
 
         function updateStats() {
@@ -547,7 +555,7 @@
 
         function loadSelections() {
           try {
-            state.figurinhasSelecionadas = JSON.parse(localStorage.getItem(storageKey) || "[]");
+            state.figurinhasSelecionadas = JSON.parse(localStorage.getItem(albumConfig.storageKey) || "[]");
           } catch (error) {
             state.figurinhasSelecionadas = [];
           }
