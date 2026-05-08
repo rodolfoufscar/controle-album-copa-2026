@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Album da Copa 2022</title>
+    <style>
+      html,
+      body,
+      div,
+      span,
+      applet,
+      object,
+      iframe,
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6,
+      p,
+      blockquote,
+      pre,
+      a,
+      abbr,
+      acronym,
+      address,
+      big,
+      cite,
+      code,
+      del,
+      dfn,
+      em,
+      img,
+      ins,
+      kbd,
+      q,
+      s,
+      samp,
+      small,
+      strike,
+      strong,
+      sub,
+      sup,
+      tt,
+      var,
+      b,
+      u,
+      i,
+      center,
+      dl,
+      dt,
+      dd,
+      ol,
+      ul,
+      li,
+      fieldset,
+      form,
+      label,
+      legend,
+      table,
+      caption,
+      tbody,
+      tfoot,
+      thead,
+      tr,
+      th,
+      td,
+      article,
+      aside,
+      canvas,
+      details,
+      embed,
+      figure,
+      figcaption,
+      footer,
+      header,
+      hgroup,
+      menu,
+      nav,
+      output,
+      ruby,
+      section,
+      summary,
+      time,
+      mark,
+      audio,
+      video {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        vertical-align: baseline;
+      }
+
+      :root {
+        color-scheme: light;
+      }
+
+      body {
+        font-family: Avenir, Helvetica, Arial, sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        color: #2c3e50;
+        background: #ffffff;
+        text-align: center;
+        padding: 24px 16px 40px;
+      }
+
+      .container {
+        width: 100%;
+        max-width: 1040px;
+        margin: 0 auto;
+      }
+
+      .options-layout,
+      .filter-row,
+      .groups-wrapper,
+      .group-row,
+      .group-card {
+        display: flex;
+      }
+
+      .options-layout {
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 24px;
+      }
+
+      .filter-row {
+        justify-content: center;
+        align-items: center;
+      }
+
+      .groups-wrapper {
+        justify-content: center;
+      }
+
+      .group-row {
+        justify-content: flex-start;
+        gap: 18px;
+        flex-wrap: wrap;
+      }
+
+      .group-card {
+        align-items: flex-start;
+        gap: 10px;
+      }
+
+      .mr10 {
+        margin-right: 10px;
+      }
+
+      .mb10 {
+        margin-bottom: 10px;
+      }
+
+      .mb20 {
+        margin-bottom: 20px;
+      }
+
+      .mt40 {
+        margin-top: 40px;
+      }
+
+      .text-left {
+        text-align: left;
+      }
+
+      .text-center {
+        text-align: center;
+      }
+
+      .block {
+        display: block;
+      }
+
+      .input {
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid #d0d0d0;
+        min-width: 210px;
+        font: inherit;
+      }
+
+      .input.small {
+        min-width: 120px;
+      }
+
+      table {
+        display: inline-block;
+        width: 100%;
+        border-spacing: 0;
+        border-collapse: collapse;
+      }
+
+      td {
+        padding: 0 2px;
+        border: 1px solid #000;
+        white-space: nowrap;
+      }
+
+      td:hover {
+        background-color: #d0d0d0;
+        cursor: pointer;
+      }
+
+      td.selected {
+        background-color: green;
+        color: #fff;
+      }
+
+      .holder-table {
+        margin-bottom: 10px;
+        text-align: left;
+      }
+
+      .checkbox {
+        margin-right: 8px;
+      }
+
+      @media (max-width: 820px) {
+        .filter-row {
+          flex-direction: column;
+          gap: 10px;
+        }
+
+        .group-row {
+          flex-direction: column;
+        }
+
+        .group-card {
+          flex-direction: column;
+        }
+
+        .input {
+          min-width: 0;
+          width: 100%;
+          box-sizing: border-box;
+        }
+      }
+
+      @media print {
+        .no-print,
+        .no-print * {
+          display: none !important;
+        }
+
+        td {
+          font-size: 12px;
+        }
+
+        td.selected {
+          -webkit-print-color-adjust: exact;
+          text-decoration: line-through;
+          background-color: #a5a5a5;
+        }
+
+        .holder-table {
+          margin-bottom: 3px !important;
+        }
+
+        .group-card h5 {
+          margin-top: 2px;
+          min-width: 30px;
+          text-align: right;
+        }
+
+        .group-card table {
+          margin-left: 10px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app" class="container">
+      <h1 class="no-print mb20">Album da Copa 2022</h1>
+
+      <div class="options-layout no-print">
+        <div class="text-left">
+          <h2 class="mb10">Opções</h2>
+
+          <div class="mb10">
+            <input id="checkFigurinhas" class="checkbox" type="checkbox" />
+            <label for="checkFigurinhas">Esconder figurinhas selecionadas</label>
+          </div>
+
+          <div class="mb10">
+            <input id="ordenarAlf" class="checkbox" type="checkbox" />
+            <label for="ordenarAlf">Ordenar alfabéticamente</label>
+          </div>
+
+          <div class="mb10">
+            <input id="agruparFigurinhas" class="checkbox" type="checkbox" />
+            <label for="agruparFigurinhas">Agrupar figurinhas</label>
+          </div>
+
+          <div class="mb10">
+            <label for="colunas" class="block">Número de colunas</label>
+            <input id="colunas" name="colunas" type="number" class="input small" />
+          </div>
+        </div>
+
+        <div class="text-left">
+          <h2 class="mb10">Informações</h2>
+          <p class="mb10"><span id="selected-count">0</span> figurinhas selecionadas</p>
+          <p class="mb10"><span id="missing-count">0</span> figurinhas faltantes</p>
+          <p><span id="progress-count">0.00</span> % concluído</p>
+        </div>
+      </div>
+
+      <div class="filter-row no-print mt40 mb20">
+        <label for="filterString" class="mr10">Filtrar dados</label>
+        <input id="filterString" name="filterString" type="text" placeholder="Digite um texto..." class="input" />
+      </div>
+
+      <div class="groups-wrapper">
+        <div id="groups-root"></div>
+      </div>
+    </div>
+
+    <script>
+      (function () {
+        var times = [
+          "QAT", "ECU", "SEN", "NED", "ENG", "IRN", "USA", "WAL",
+          "ARG", "KSA", "MEX", "POL", "FRA", "AUS", "DEN", "TUN",
+          "ESP", "CRC", "GER", "JPN", "BEL", "CAN", "MAR", "CRO",
+          "BRA", "SRB", "SUI", "CMR", "POR", "GHA", "URU", "KOR"
+        ];
+
+        var storageKey = "figurinhasSelecionadas";
+        var state = {
+          colunas: 16,
+          lastValidColunas: 16,
+          filterString: "",
+          esconderSelecionadas: false,
+          agruparFigurinhas: false,
+          ordenarAlf: false,
+          figurinhasSelecionadas: [],
+          figurinhas: []
+        };
+
+        var elements = {
+          esconderSelecionadas: document.getElementById("checkFigurinhas"),
+          ordenarAlf: document.getElementById("ordenarAlf"),
+          agruparFigurinhas: document.getElementById("agruparFigurinhas"),
+          colunas: document.getElementById("colunas"),
+          filterString: document.getElementById("filterString"),
+          selectedCount: document.getElementById("selected-count"),
+          missingCount: document.getElementById("missing-count"),
+          progressCount: document.getElementById("progress-count"),
+          groupsRoot: document.getElementById("groups-root")
+        };
+
+        function buildFigurinhas() {
+          var figurinhas = [{ value: "00", group: "Grupo" }];
+          var i;
+
+          for (i = 1; i <= 18; i += 1) {
+            figurinhas.push({ value: "FWC " + i, group: "FWC" });
+          }
+
+          times.forEach(function (time) {
+            for (i = 1; i <= 20; i += 1) {
+              figurinhas.push({ value: time + " " + i, group: time });
+            }
+          });
+
+          for (i = 19; i <= 29; i += 1) {
+            figurinhas.push({ value: "FWC " + i, group: "FWC" });
+          }
+
+          for (i = 1; i <= 8; i += 1) {
+            figurinhas.push({ value: "C" + i, group: "C" });
+          }
+
+          return figurinhas;
+        }
+
+        function chunk(arr, chunkSize) {
+          var result = [];
+          var i;
+
+          for (i = 0; i < arr.length; i += chunkSize) {
+            result.push(arr.slice(i, i + chunkSize));
+          }
+
+          return result;
+        }
+
+        function groupBy(list, keyGetter) {
+          var map = {};
+
+          list.forEach(function (item) {
+            var key = keyGetter(item);
+
+            if (!map[key]) {
+              map[key] = { nome: key, data: [] };
+            }
+
+            map[key].data.push(item);
+          });
+
+          return Object.keys(map).map(function (key) {
+            return map[key];
+          });
+        }
+
+        function isSelected(figurinha) {
+          return state.figurinhasSelecionadas.indexOf(figurinha) > -1;
+        }
+
+        function sortFigurinhas(figurinhas) {
+          figurinhas.sort(function (a, b) {
+            var n1 = parseInt(a.value.replace(/[^0-9]/g, ""), 10)
+              .toLocaleString("en-US", { minimumIntegerDigits: 2, useGrouping: false });
+            var n2 = parseInt(b.value.replace(/[^0-9]/g, ""), 10)
+              .toLocaleString("en-US", { minimumIntegerDigits: 2, useGrouping: false });
+            var s1 = a.value.replace(/[^A-Za-z]/g, "").concat(n1);
+            var s2 = b.value.replace(/[^A-Za-z]/g, "").concat(n2);
+            return s1 > s2 ? 1 : -1;
+          });
+        }
+
+        function getVisibleGroups() {
+          var figurinhas = state.figurinhas.slice();
+          var gruposFigurinhas;
+          var colunasFinal;
+
+          if (state.esconderSelecionadas) {
+            figurinhas = figurinhas.filter(function (figurinha) {
+              return state.figurinhasSelecionadas.indexOf(figurinha.value) === -1;
+            });
+          }
+
+          if (state.filterString) {
+            figurinhas = figurinhas.filter(function (figurinha) {
+              return figurinha.value.toLowerCase().indexOf(state.filterString.toLowerCase()) > -1;
+            });
+          }
+
+          if (state.ordenarAlf) {
+            sortFigurinhas(figurinhas);
+          }
+
+          if (state.agruparFigurinhas) {
+            gruposFigurinhas = groupBy(figurinhas, function (figurinha) {
+              return figurinha.group;
+            });
+          } else {
+            gruposFigurinhas = [{ nome: "Grupo 1", data: figurinhas }];
+          }
+
+          colunasFinal = state.colunas > 0 ? parseInt(state.colunas, 10) : parseInt(state.lastValidColunas, 10);
+
+          gruposFigurinhas.forEach(function (grupo) {
+            grupo.data = chunk(grupo.data, colunasFinal);
+          });
+
+          return gruposFigurinhas;
+        }
+
+        function saveSelections() {
+          localStorage.setItem(storageKey, JSON.stringify(state.figurinhasSelecionadas));
+        }
+
+        function updateStats() {
+          var selected = state.figurinhasSelecionadas.length;
+          var total = state.figurinhas.length;
+          var missing = total - selected;
+          var progress = total === 0 ? "0.00" : ((selected * 100) / total).toFixed(2);
+
+          elements.selectedCount.textContent = selected;
+          elements.missingCount.textContent = missing;
+          elements.progressCount.textContent = progress;
+        }
+
+        function renderGroups() {
+          var groups = getVisibleGroups();
+          elements.groupsRoot.innerHTML = "";
+
+          chunk(groups, 2).forEach(function (line) {
+            var holder = document.createElement("div");
+            holder.className = "holder-table";
+
+            var row = document.createElement("div");
+            row.className = "group-row";
+
+            line.forEach(function (grupoFigurinha) {
+              var card = document.createElement("div");
+              card.className = "group-card";
+
+              var title = document.createElement("h5");
+              title.textContent = grupoFigurinha.nome;
+              card.appendChild(title);
+
+              var table = document.createElement("table");
+              table.className = "text-center";
+
+              grupoFigurinha.data.forEach(function (linhaFigurinhas) {
+                var tr = document.createElement("tr");
+
+                linhaFigurinhas.forEach(function (figurinha) {
+                  var td = document.createElement("td");
+                  td.textContent = figurinha.value;
+
+                  if (isSelected(figurinha.value)) {
+                    td.classList.add("selected");
+                  }
+
+                  td.addEventListener("click", function () {
+                    toggleSelection(figurinha.value);
+                  });
+
+                  tr.appendChild(td);
+                });
+
+                table.appendChild(tr);
+              });
+
+              card.appendChild(table);
+              row.appendChild(card);
+            });
+
+            holder.appendChild(row);
+            elements.groupsRoot.appendChild(holder);
+          });
+        }
+
+        function render() {
+          updateStats();
+          renderGroups();
+        }
+
+        function toggleSelection(figurinha) {
+          var index = state.figurinhasSelecionadas.indexOf(figurinha);
+
+          if (index === -1) {
+            state.figurinhasSelecionadas.push(figurinha);
+          } else {
+            state.figurinhasSelecionadas.splice(index, 1);
+          }
+
+          saveSelections();
+          render();
+        }
+
+        function loadSelections() {
+          try {
+            state.figurinhasSelecionadas = JSON.parse(localStorage.getItem(storageKey) || "[]");
+          } catch (error) {
+            state.figurinhasSelecionadas = [];
+          }
+        }
+
+        function bindEvents() {
+          elements.esconderSelecionadas.addEventListener("change", function (event) {
+            state.esconderSelecionadas = event.target.checked;
+            render();
+          });
+
+          elements.ordenarAlf.addEventListener("change", function (event) {
+            state.ordenarAlf = event.target.checked;
+            render();
+          });
+
+          elements.agruparFigurinhas.addEventListener("change", function (event) {
+            state.agruparFigurinhas = event.target.checked;
+            render();
+          });
+
+          elements.colunas.addEventListener("input", function (event) {
+            var value = parseInt(event.target.value, 10);
+            state.colunas = Number.isNaN(value) ? 0 : value;
+
+            if (state.colunas > 0) {
+              state.lastValidColunas = state.colunas;
+            }
+
+            render();
+          });
+
+          elements.filterString.addEventListener("input", function (event) {
+            state.filterString = event.target.value;
+            render();
+          });
+        }
+
+        function syncForm() {
+          elements.esconderSelecionadas.checked = state.esconderSelecionadas;
+          elements.ordenarAlf.checked = state.ordenarAlf;
+          elements.agruparFigurinhas.checked = state.agruparFigurinhas;
+          elements.colunas.value = state.colunas;
+          elements.filterString.value = state.filterString;
+        }
+
+        function init() {
+          state.figurinhas = buildFigurinhas();
+          loadSelections();
+          syncForm();
+          bindEvents();
+          render();
+        }
+
+        init();
+      })();
+    </script>
+  </body>
+</html>
