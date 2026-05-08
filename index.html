@@ -613,6 +613,7 @@
 
           elements.filterString.addEventListener("keydown", function (event) {
             var visibleFigurinhas;
+            var figurinhaValue;
 
             if (event.key !== "Enter") {
               return;
@@ -624,7 +625,14 @@
               return;
             }
 
-            toggleSelection(visibleFigurinhas[0].value);
+            figurinhaValue = visibleFigurinhas[0].value;
+
+            if (isSelected(figurinhaValue)) {
+              alert("A figurinha " + figurinhaValue + " ja esta selecionada.");
+              return;
+            }
+
+            toggleSelection(figurinhaValue);
             state.filterString = "";
             elements.filterString.value = "";
             render();
