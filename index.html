@@ -258,6 +258,7 @@
 
         .holder-table {
           margin-bottom: 3px !important;
+          break-inside: avoid;
         }
 
         .group-card h5 {
@@ -396,6 +397,24 @@
           return result;
         }
 
+        function groupConsecutiveByFirstLetter(groups) {
+          var result = [];
+          var currentLetter = null;
+          var currentLine = null;
+
+          groups.forEach(function (grupo) {
+            var letter = grupo.nome.charAt(0).toUpperCase();
+            if (letter !== currentLetter) {
+              currentLetter = letter;
+              currentLine = [];
+              result.push(currentLine);
+            }
+            currentLine.push(grupo);
+          });
+
+          return result;
+        }
+
         function groupBy(list, keyGetter) {
           var map = {};
 
@@ -505,7 +524,7 @@
           var groups = getVisibleGroups();
           elements.groupsRoot.innerHTML = "";
 
-          chunk(groups, 2).forEach(function (line) {
+          (state.agruparFigurinhas ? groupConsecutiveByFirstLetter(groups) : chunk(groups, 2)).forEach(function (line) {
             var holder = document.createElement("div");
             holder.className = "holder-table";
 
